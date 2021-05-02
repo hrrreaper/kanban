@@ -156,28 +156,11 @@ const hideInputBox = (column) => {
 // allow saved arrays to update
 
 const rebuildArrays = () => {
-  todoListArray = [];
-  for (let i = 0; i < todoList.children.length; i++) {
-    todoListArray.push(todoList.children[i].textContent);
-  }
-
-  progressListArray = [];
-  for (let i = 0; i < progressList.children.length; i++) {
-    progressListArray.push(progressList.children[i].textContent);
-  }
-
-  completeListArray = [];
-  for (let i = 0; i < completeList.children.length; i++) {
-    completeListArray.push(completeList.children[i].textContent);
-  }
-
-  onHoldListArray = [];
-  for (let i = 0; i < onHoldList.children.length; i++) {
-    onHoldListArray.push(onHoldList.children[i].textContent);
-  }
-
+  todoListArray = Array.from(todoList.children).map(i => i.textContent);
+  progressListArray = Array.from(progressList.children).map(i => i.textContent);
+  completeListArray = Array.from(completeList.children).map(i => i.textContent);
+  onHoldListArray = Array.from(onHoldList.children).map(i => i.textContent);
   updateDOM();
-
 }
 
 // when items drag
