@@ -29,21 +29,21 @@ const getSavedColumns = ()  => {
   if (localStorage.getItem('todoItems')) {
     todoListArray = JSON.parse(localStorage.todoItems);
     progressListArray = JSON.parse(localStorage.progressItems);
-    completeListArray = JSON.parse(localStorage.completeItems);
     onHoldListArray = JSON.parse(localStorage.onHoldItems);
+    completeListArray = JSON.parse(localStorage.completeItems);
   } else {
-    todoListArray = ['Release the course', 'Sit back and relax'];
-    progressListArray = ['Work on projects', 'Listen to music'];
-    completeListArray = ['Being cool', 'Getting stuff done'];
-    onHoldListArray = ['Being uncool'];
+    todoListArray = [];
+    progressListArray = [];
+    completeListArray = [];
+    onHoldListArray = [];
   }
 }
 
 
 // Set localStorage Arrays
 const updateSavedColumns = () => {
-  listArrays = [todoListArray, progressListArray, completeListArray, onHoldListArray];
-  const arrayNames = ['todo', 'progress', 'complete', 'onHold']
+  listArrays = [todoListArray, progressListArray, onHoldListArray, completeListArray];
+  const arrayNames = ['todo', 'progress', 'onHold', 'complete']
 
   arrayNames.forEach((arrName, index) => {
     localStorage.setItem(`${arrName}Items`, JSON.stringify(listArrays[index]));
@@ -95,20 +95,21 @@ const updateDOM = () => {
   });
   progressListArray = filterArray(progressListArray);
 
-  // Complete Column
-  completeList.textContent = '';
-  completeListArray.forEach((completeItem, index) => {
-    createItemEl(completeList, 2, completeItem, index);
-  });
-  completeListArray = filterArray(completeListArray);
-
-  // On Hold Column
+   // On Hold Column
   onHoldList.textContent = '';
   onHoldListArray.forEach((onHoldItem, index) => {
-    createItemEl(onHoldList, 3, onHoldItem, index);
+    createItemEl(onHoldList, 2, onHoldItem, index);
   });
   onHoldListArray = filterArray(onHoldListArray);
 
+  // Complete Column
+  completeList.textContent = '';
+  completeListArray.forEach((completeItem, index) => {
+    createItemEl(completeList, 3, completeItem, index);
+  });
+  completeListArray = filterArray(completeListArray);
+
+ 
   // Run getSavedColumns only once, Update Local Storage
   updatedOnLoad = true;
   updateSavedColumns();
@@ -158,8 +159,8 @@ const hideInputBox = (column) => {
 const rebuildArrays = () => {
   todoListArray = Array.from(todoList.children).map(i => i.textContent);
   progressListArray = Array.from(progressList.children).map(i => i.textContent);
-  completeListArray = Array.from(completeList.children).map(i => i.textContent);
   onHoldListArray = Array.from(onHoldList.children).map(i => i.textContent);
+  completeListArray = Array.from(completeList.children).map(i => i.textContent);
   updateDOM();
 }
 
